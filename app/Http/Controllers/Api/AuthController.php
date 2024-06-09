@@ -77,7 +77,8 @@ class AuthController extends Controller
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 $user = Auth::user();
 
-                log::info('http://localhost/passport-authentication/public/oauth/token');
+
+
 
                 // Make the OAuth token request
                 $response = Http::post('http://localhost/passport-authentication/public/oauth/token', [
@@ -87,6 +88,8 @@ class AuthController extends Controller
                     'username' => $request->email,  // Use the email from the request
                     'password' => $request->password,  // Use the password from the request
                 ]);
+
+
 
                 // $response = Http::post(env('OAUTH_TOKEN_URL'), [
                 //     'grant_type' => 'password',
@@ -100,6 +103,9 @@ class AuthController extends Controller
                 // Check if the response from the OAuth server is successful
                 if ($response->successful()) {
                     $user['token'] = $response->json();
+
+                    // $user->createToken('token')->accessToken;
+
 
                     return response()->json([
                         'success' => true,

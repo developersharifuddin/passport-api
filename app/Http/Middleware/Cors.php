@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Cors
 {
@@ -15,6 +16,7 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
+
         // Add CORS headers
         $response = $next($request)
             ->header('Access-Control-Allow-Origin', '*')
@@ -24,4 +26,3 @@ class Cors
         return $response;
     }
 }
-v
